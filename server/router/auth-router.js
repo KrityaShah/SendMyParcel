@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const authControllers = require('../controller/auth-controller');
 
 
-router.route('/').get((req, res) => {
-    res
-    .status(200)
-    .send("Welcome to the home using router");
-})
+
+router.route('/').get(authControllers.home)
 
 
 module.exports = router
