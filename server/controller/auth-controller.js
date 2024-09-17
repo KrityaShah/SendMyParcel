@@ -13,4 +13,19 @@ const home = async (req, res) =>{
     }
 }
 
-module.exports = {home}
+const registration = async (req, res) => {
+
+    try {
+        res.status(200).send("welcome to registration page through controller");
+        
+    } catch (error) {
+        console.error("messgae: " , error);
+        
+    }
+
+
+
+
+}
+
+module.exports = {home, registration}

@@ -5,6 +5,7 @@ const authControllers = require('../controller/auth-controller');
 
 
 router.route('/').get(authControllers.home)
+router.route('/registration').get(authControllers.registration)
 
 
 module.exports = router
