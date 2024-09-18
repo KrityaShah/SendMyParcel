@@ -16,7 +16,6 @@ const home = async (req, res) =>{
 const register = async (req, res) => {
 
     try {
-        console.log(req.body);
 
         const {username, email, gender, phone, password} = req.body;
 
@@ -40,10 +39,38 @@ const register = async (req, res) => {
         console.error("messgae: " , error);
         
     }
+};
 
 
+// login:
+
+const login = async (req, res) =>{
+    try {
+        const {email, password} = req.body;
+
+        const userExist = await User.findOne({email});
+
+        if(!userExist){
+            return res.status(400).json({message: "Invalid Credential"});
+        }
+
+        const isPasswordValid  = await bcrypt.compare(password, userExist.password);
+
+        if(isPasswordValid ){
+            res.status(200).json({
+                message: "Login sucessfull",
+                token : await userExist.generateToken(),
+                userId: userExist._id.toString(),
+            })
+        }else{
+            res.status(401).json({message: "invalid Credentail"});
+        }
 
 
+    } catch (error) {
+        console.error(error);
+        
+    }
 }
 
-module.exports = {home, register}
+module.exports = {home, register, login}
